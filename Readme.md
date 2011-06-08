@@ -4,7 +4,7 @@ Right now, all Condo does it notify you of stuff. It'll grow, maybe. And, right 
 
 ### Using it
 1. `brew install growlnotify` (libnotify is coming later…)
-2. `npm install condo`
+2. `npm install -g condo` Install it globally so you can use the binary.
 3. `CONVORE_USERNAME=jonforce CONVORE_PASSWORD=smithcloud condo`
 
 ### Contributing
