@@ -7,7 +7,9 @@ class exports.Group
     if Group.cache[id]
       callback(Group.cache[id])
     else
-      Group.client.getGroup({groupid: id}, (err, data) ->
+      Group.client.getGroup({groupid: id}, (error, data) ->
+        if error
+          console.log "An error ocurred fetching a group.}"
         if data?.group? 
           g = new Group(data.group.name, data.group.id)
           callback(g)

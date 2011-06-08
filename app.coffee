@@ -14,8 +14,8 @@ userProfileImage = (hash, callback) ->
       callback("#{process.env.HOME}/.condo/users/#{hash.username}.png")
     else
       download = new get {uri: hash.img.replace("https","http")}
-      download.toDisk "#{process.env.HOME}/.condo/users/#{hash.username}.png", (err) =>              
-        if err
+      download.toDisk "#{process.env.HOME}/.condo/users/#{hash.username}.png", (error) =>              
+        if error
           console.log "Failed to get user image: #{err}"
         callback("#{process.env.HOME}/.condo/users/#{hash.username}.png")
         
@@ -35,12 +35,13 @@ class exports.Application
         console.log "Condo is now listening for awesome shit on Convore..."
         Group.client = @client
         @listen()           
-        mkdirp "#{process.env.HOME}/.condo/users", 0755, (err) =>              
-          download = new get {uri: payload.img.replace("https","http")}
-          download.toDisk "#{process.env.HOME}/.condo/me.png", (err) =>              
-            if err
-              console.log "Failed to get user image: #{err}"
-            Growl.notify("You'll receive notifications on any mentions.", { title: "Welcome to Convore", image: "~/.condo/me.png" })   
+        mkdirp "#{process.env.HOME}/.condo/users", 0755, (error) =>
+          unless error               
+            download = new get {uri: payload.img.replace("https","http")}
+            download.toDisk "#{process.env.HOME}/.condo/me.png", (error) =>              
+              if error
+                console.log "Failed to get user image: #{err}"
+              Growl.notify("You'll receive notifications on any mentions.", { title: "Welcome to Convore", image: "~/.condo/me.png" })   
 
   # Hmm, but it works.
   receive: (data) ->    
@@ -70,13 +71,13 @@ class exports.Application
   listen: -> 
     if @cursor isnt false
       @client.live {cursor: @cursor}, (error, payload) =>  
-        if err
+        if error
           console.log "Error: #{error}"
         else
           @receive item for item in payload.messages
     else          
       @client.live (error, payload) => 
-        if err
+        if error
           console.log "Error: #{error}"
         else
           @receive item for item in payload.messages
