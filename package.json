@@ -1,11 +1,10 @@
 {
     "name": "condo",
-    "version": "0.0.1",
+    "version": "0.0.1a",
     "description": "A notifier for Convore",
     "author": "Austin Bales <austin@417east.com>",
     "dependencies": {
         "nodevore": ">= 0.0.1",
-        "express": ">= 0.0.1",
         "coffee-script": ">= 1.1.1",
         "growl": ">= 1.1.0",
         "get": ">= 0.3.0",
