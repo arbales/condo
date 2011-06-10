@@ -24,7 +24,9 @@ class exports.Application
   constructor: ->    
     console.log "Connecting to Convore..."
     @client = new Nodevore({ username : env.CONVORE_USERNAME,  password : env.CONVORE_PASSWORD})
+    @username = env.CONVORE_USERNAME
     @login()
+
 
   login: ->
     @client.verifyAccount (error, payload) =>  
@@ -50,9 +52,10 @@ class exports.Application
       @client.hangup()
       @cursor = data._id 
       @listen() 
+    console.log "Message received..."  
     switch data.kind
-      when 'message'
-        # console.log data
+      when 'message' and data.user.username isnt @username
+        console.log data
         Group.get data.group, (group) =>
           userProfileImage data.user, (image) =>   
             Growl.notify(data.message, {title: "#{group.name}/#{data.topic.name}", image: image})
