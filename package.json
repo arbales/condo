@@ -1,6 +1,6 @@
 {
     "name": "condo",
-    "version": "0.0.1b",
+    "version": "0.0.2",
     "description": "A notifier for Convore",
     "author": "Austin Bales <austin@417east.com>",
     "dependencies": {
